@@ -84,6 +84,9 @@ class PolynomialTests(unittest.TestCase):
     def test_addPolynomialDifferentLength3(self):
         self.assertEqual(polynomial.Polynomial([1, 2, 3, 4]) + polynomial.Polynomial([-1, -2, 0, 0]), polynomial.Polynomial([3,4]))
 
+    def test_addPolynomialDifferentLength4(self):
+        self.assertEqual(polynomial.Polynomial([1, 2, 3, 4, 5]) + polynomial.Polynomial([1]), polynomial.Polynomial([1, 2, 3, 4, 6]))
+
     def test_addPolynomialSameLength3(self):
         self.assertEqual(polynomial.Polynomial([1, 2, 3]) + polynomial.Polynomial([-1, -2, 3]), polynomial.Polynomial([6]))
 
@@ -102,22 +105,44 @@ class PolynomialTests(unittest.TestCase):
     def test_raddCoeff(self):
         self.assertEqual(1 + polynomial.Polynomial([1,1,1]), polynomial.Polynomial([1,1,2]))
 
-    # def test_sub(self):
-    #     self.assertEqual(polynomial.Polynomial([2,2,2]) - polynomial.Polynomial([1,1,1]), polynomial.Polynomial([1,1,1]))
-    #
-    # def test_subCoeff(self):
-    #     self.assertEqual(polynomial.Polynomial([1, 1, 2]) - 1, polynomial.Polynomial([1, 1, 1]))
-    #
-    # def test_subCoef2(self):
-    #     self.assertEqual(polynomial.Polynomial([2]) - 1, polynomial.Polynomial(1))
-    #
-    # def test_subCoeff3(self):
-    #     self.assertEqual(polynomial.Polynomial(0) - 0, 0)
-    #
-    # def test_subCoeffSide(self):
-    #     self.assertEqual(1 - polynomial.Polynomial([1, 1, 1]), polynomial.Polynomial([1, 1, 0]))
-    #
+    def test_sub(self):
+        self.assertEqual(polynomial.Polynomial([2,2,2]) - polynomial.Polynomial([1,1,1]), polynomial.Polynomial([1,1,1]))
 
+    def test_subCoeff(self):
+        self.assertEqual(polynomial.Polynomial([1, 1, 2]) - 1, polynomial.Polynomial([1, 1, 1]))
+
+    def test_subCoef2(self):
+        self.assertEqual(polynomial.Polynomial([2]) - 1, polynomial.Polynomial(1))
+
+    def test_subCoeff3(self):
+        self.assertEqual(polynomial.Polynomial(0) - 0, 0)
+
+    def test_subPolynomialNegative(self):
+        self.assertEqual(polynomial.Polynomial([1,2,3,4]) - polynomial.Polynomial([1,0,-1,1]), polynomial.Polynomial([0,2,4,3]))
+
+    def test_subPolynomialDifferentLength(self):
+        self.assertEqual(polynomial.Polynomial([1, 2, 3, 4, 5]) - polynomial.Polynomial([1, 1, 2]), polynomial.Polynomial([1, 2, 2, 3, 3]))
+
+    def test_subPolynomialDifferentLength2(self):
+        self.assertEqual(polynomial.Polynomial([1, 2]) - polynomial.Polynomial([1, 2, 3]), polynomial.Polynomial([-1, -1, -1]))
+
+    def test_subPolynomialDifferentLength3(self):
+        self.assertEqual(polynomial.Polynomial([1, 2, 3, 4]) - polynomial.Polynomial([1, 2, 0, 0]), polynomial.Polynomial([3,4]))
+
+    def test_subPolynomialDifferentLength4(self):
+        self.assertEqual(polynomial.Polynomial([1, 2, 3, 4]) - polynomial.Polynomial([1]), polynomial.Polynomial([1,2,3,3]))
+
+    def test_subPolynomialSameLength3(self):
+        self.assertEqual(polynomial.Polynomial([1, 2, 3]) - polynomial.Polynomial([1, 2, 3]), polynomial.Polynomial([0]))
+
+    def test_subPolynomialZero(self):
+        self.assertEqual(polynomial.Polynomial([1,2,3]) - polynomial.Polynomial(0), polynomial.Polynomial([1,2,3]))
+
+    def test_rsubCoeff(self):
+        self.assertEqual(1 - polynomial.Polynomial([1, 1, 1]), polynomial.Polynomial([-1, -1, 0]))
+
+    def test_rsubCoeff2(self):
+        self.assertEqual(1 - polynomial.Polynomial([1]), polynomial.Polynomial([0]))
 
 unittest.main()
 
