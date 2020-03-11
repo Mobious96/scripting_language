@@ -161,11 +161,14 @@ class Polynomial:
         if isinstance(other, int):
             buf = Polynomial([i * other for i in self.coeffs])
         if isinstance(other, Polynomial):
-            buf = Polynomial(self)
-            for k,v in enumerate(reversed(other.coeffs)):
-                buf.coeffs = [i * v for i in buf.coeffs]
-
-
+            buf = Polynomial(0)
+            buf.coeffs = [0] * (len(self) + len(other) - 1)
+            for i in reversed(range(len(self))):
+                for j in reversed(range(len(other))):
+                    buf.coeffs[i+j] += self.coeffs[i] * other.coeffs[j]
+            # buf = Polynomial(self)
+            # for k,v in enumerate(reversed(other.coeffs)):
+            #     buf.coeffs = [i * v for i in buf.coeffs]
         buf.fixZeros()
         return buf
 

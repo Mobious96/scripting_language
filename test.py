@@ -12,6 +12,17 @@ class PolynomialTests(unittest.TestCase):
         polynomial.Polynomial((1, 2, 3))
         #polynomial.Polynomial({1,2,3})
 
+    def test_copy(self):
+        p = polynomial.Polynomial([1,2,3])
+        p2 = polynomial.Polynomial(p)
+        self.assertEqual(p,p2)
+
+    def test_copyNotLinked(self):
+        p = polynomial.Polynomial([1,2,3])
+        p2 = polynomial.Polynomial(p)
+        p2.coeffs[0] -= 2
+        self.assertNotEqual(p,p2)
+
     # [repr and str]
     def test_negativeCoeffs(self):
         self.assertEqual(str(polynomial.Polynomial([1,-2, 3])), "x^2 + 2x + 3")
@@ -143,6 +154,37 @@ class PolynomialTests(unittest.TestCase):
 
     def test_rsubCoeff2(self):
         self.assertEqual(1 - polynomial.Polynomial([1]), polynomial.Polynomial([0]))
+
+    # (x+2)*(x^2 + x + 1) = x^3 + x^2 + x + 2x^2 + 2x + 2 = x^3 + 3x^2 + 3x + 2
+    def test_mulPolynomial1(self):
+        self.assertEqual(polynomial.Polynomial([1,2]) * polynomial.Polynomial([1,1,1]), polynomial.Polynomial([1,3,3,2]))
+
+    def test_mulPolynomial2(self):
+        self.assertEqual(polynomial.Polynomial([1,0,0]) * polynomial.Polynomial([1,1,1]), polynomial.Polynomial([1,1,1,0,0]))
+
+    def test_mulPolynomial3(self):
+        self.assertEqual(polynomial.Polynomial([-1,0]) * polynomial.Polynomial([1,1,1]), polynomial.Polynomial([-1,-1,-1,0]))
+
+    def test_mulPolynomial3(self):
+        self.assertEqual(polynomial.Polynomial([0]) * polynomial.Polynomial([1,1,1]), polynomial.Polynomial([0]))
+
+    def test_mulCoeff1(self):
+        self.assertEqual(polynomial.Polynomial([1,1,1]) * 2, polynomial.Polynomial([2,2,2]))
+
+    def test_mulCoeff2(self):
+        self.assertEqual(polynomial.Polynomial([1,1,1]) * (-2), polynomial.Polynomial([-2,-2,-2]))
+
+    def test_mulCoeff3(self):
+        self.assertEqual(polynomial.Polynomial([1,1,1]) * 0, polynomial.Polynomial([0]))
+
+    def test_rmulCoeff1(self):
+        self.assertEqual(2 * polynomial.Polynomial([1, 1, 1]), polynomial.Polynomial([2, 2, 2]))
+
+    def test_rmulCoeff2(self):
+        self.assertEqual((-2) * polynomial.Polynomial([1, 1, 1]), polynomial.Polynomial([-2, -2, -2]))
+
+    def test_rmulCoeff3(self):
+        self.assertEqual(0 * polynomial.Polynomial([1, 1, 1]), polynomial.Polynomial([0]))
 
 unittest.main()
 
